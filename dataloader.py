@@ -2,6 +2,10 @@ from urllib.parse import urlparse
 import requests
 from bs4 import BeautifulSoup
 from langchain_community.document_loaders import PlaywrightURLLoader , SeleniumURLLoader
+from db import get_db
+from models import Bookmark, ContentEmbedding
+from sqlalchemy.orm import Session
+from datetime import datetime
 
 
 def get_domain_from_url(url):
@@ -64,6 +68,17 @@ def get_webpage_title(url):
 #                                                 ".tags",".related-posts",".tt_box_namecard"])
 #     data = await loader.load()
 #     return data
+
+def store_embeddings(bookmark_id, embedding, db: Session):
+    new_embedding = ContentEmbedding(
+        bookmark_id=bookmark_id,
+        embedding=embedding,  # 데이터베이스에 저장할 임베딩 데이터 타입을 결정하세요
+        registrant="system",
+        registration_date=datetime.now(),
+        update_date=datetime.now()
+    )
+    db.add(new_embedding)
+    db.commit()
 
 def page_content(urls) : 
     loader = SeleniumURLLoader(urls=urls)
