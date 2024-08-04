@@ -58,7 +58,7 @@ if user_input := st.chat_input("질문을 입력해주세요."):
             response = result['answer']
             source_documents = result['source_documents']
             
-            st.session_state.messages.append({"role": "assistant", "content": response})
+            st.session_state.messages.append({"role": "assistant", "co  ntent": response})
 
             st.markdown(response)
             with st.expander("참고 문서 확인"):

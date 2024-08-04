@@ -1,5 +1,5 @@
 import streamlit as st 
-from data_loader import UrlList
+from dataloader import UrlList
 from preprocessing import get_webpage_title 
 import pandas as pd 
 
